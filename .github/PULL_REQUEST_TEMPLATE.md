@@ -1,5 +1,5 @@
-#PR TYPE
+# PR TYPE
 kok
 
-#PR 이유
+# PR 이유
 kok
