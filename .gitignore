@@ -1,4 +1,4 @@
 chromedriver-win64/
-.venv/
-testfile/
-sk쉴더스루키즈/data/
+PYTHON_proj/.venv/
+PYTHON_proj/testfile/
+PYTHON_proj/sk쉴더스루키즈/data/
