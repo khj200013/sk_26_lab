@@ -1,7 +1,6 @@
-chromedriver-win64/
 PYTHON_proj/.venv/
 PYTHON_proj/testfile/
-sk쉴더스루키즈/data/
+SK_Shieldus_Rookies/data/
 TENSOR_proj/.venv/
 TENSOR_proj/testfile/
 .env
