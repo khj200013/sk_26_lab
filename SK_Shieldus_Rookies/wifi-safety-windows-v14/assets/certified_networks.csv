@@ -1,0 +1,3 @@
+product_no,company,ssid_regex,notes
+PBL-SEOUL-001,SeoulCity,^Seoul_Public_WiFi(_5G|_6G)?$,서울시 공공와이파이 예시
+PBL-AIRPORT-001,IncheonAirport,^IIAC_Free_WiFi(_Secure)?$,인천공항 인증망 예시

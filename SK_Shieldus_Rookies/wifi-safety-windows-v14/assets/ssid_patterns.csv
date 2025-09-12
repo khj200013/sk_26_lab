@@ -1,0 +1,7 @@
+name,regex
+PRODUCT_NUMERIC,^[A-Z]{3,}\d{6,}_[0-9]{3,4}$
+DEFAULT_TPLINK,^(TP[- ]?LINK|TPLINK)[-_]?[0-9A-F]{3,}$
+DEFAULT_IPTIME,^(iptime|IPTIME)[-_]?[0-9A-F]{3,}$
+GENERIC_GUEST,^(Guest|Free|Public|Wifi|Zone).*
+KIOSK_POS,^POS[_-].*
+KIOSK_VENDOR,^KIOSK[_-].*

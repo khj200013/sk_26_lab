@@ -1,0 +1,17 @@
+{
+  "base": 50,
+  "wpa3": 30,
+  "wpa2": 10,
+  "open": -40,
+  "captivePortal": -20,
+  "patternPenalty": -15,
+  "evilTwin": -25,
+  "vendorGood": 10,
+  "vendorUnknown": -5,
+  "band5G": 5,
+  "signalGoodMin": -60,
+  "signalGoodMax": -35,
+  "signalGoodBonus": 3,
+  "historyBonus": 5,
+  "certifiedBonus": 20
+}

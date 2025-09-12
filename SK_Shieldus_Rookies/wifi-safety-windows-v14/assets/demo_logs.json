@@ -1,0 +1,29 @@
+[
+  {
+    "timestamp": 1755576760,
+    "location_hint": "Desktop-Demo",
+    "ssid": "Seoul_Public_WiFi",
+    "bssid": "3C:84:6A:12:34:56",
+    "capabilities": "WPA2,WPA3",
+    "signal": -58,
+    "channel": 36
+  },
+  {
+    "timestamp": 1755576760,
+    "location_hint": "Desktop-Demo",
+    "ssid": "Free_WiFi",
+    "bssid": "60:38:E0:AA:BB:CC",
+    "capabilities": "OPEN",
+    "signal": -45,
+    "channel": 1
+  },
+  {
+    "timestamp": 1755576760,
+    "location_hint": "Desktop-Demo",
+    "ssid": "TIPI23500000_0100",
+    "bssid": "40:31:3C:DE:AD:BE",
+    "capabilities": "WPA2",
+    "signal": -67,
+    "channel": 6
+  }
+]

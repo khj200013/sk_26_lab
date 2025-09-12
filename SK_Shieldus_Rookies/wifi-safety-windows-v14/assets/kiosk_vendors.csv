@@ -1,0 +1,3 @@
+vendor,regex
+GenericPOS,^POS[_-].*
+VendorX,^VENDORX_[0-9A-F]{4}$
