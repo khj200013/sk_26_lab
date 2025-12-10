@@ -1,0 +1,11 @@
+============================
+* XSS 문제 6번 
+============================
+1.https://lab.eqst.co.kr:8083/exam20/process/faqboardProcess.php 
+
+2. https://lab.eqst.co.kr:8083/exam20/faqview.php?board_id=35721
+
+3. <script>alert('xss');</script> 
+
+4. html..xss
+============================

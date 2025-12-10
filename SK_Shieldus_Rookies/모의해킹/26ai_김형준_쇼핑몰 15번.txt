@@ -1,0 +1,72 @@
+==========================
+
+* 쇼핑몰 문제 15번
+
+==========================
+
+1.// 브라우저 콘솔에서 실행 (sep 후보를 확장한 버전)
+(function(){
+  var charSet = ["S","e","y","o","n","g","-","K","i","m"];
+  var prefix = "Eqst";
+  // 셀렉터가 달라질 수 있으니 안전하게 찾기
+  var memberEl = document.querySelector('#memberid') || document.querySelector('input[name="memberid"]') || document.querySelector('input.memberid');
+  var md5El = document.querySelector('#md5hash') || document.querySelector('input[name="md5hash"]') || document.querySelector('input.md5hash');
+  if(!memberEl || !md5El){
+    console.log("memberid 또는 md5hash 엘리먼트를 찾을 수 없음. 요소의 id/name 확인하세요.");
+    return;
+  }
+  var memberid = memberEl.value;
+  var md5hash = md5El.value.toLowerCase();
+  // MD5 함수는 페이지에 이미 존재 (practice15.js의 MD5)
+  if (typeof MD5 !== 'function') {
+    console.log("페이지에 MD5 함수가 없습니다. 먼저 MD5 함수가 로드되었는지 확인하세요.");
+    return;
+  }
+  function md5_raw(s){ return MD5(s); }
+
+  // 현재 페이지가 계산하는 couponfront (고정 시점으로 잡음)
+  var time = Math.floor(new Date().getTime() / 1000000 % 10000).toString().padStart(4,'0');
+  var couponfront = '';
+  for (var i=0;i<time.length;i++){ couponfront += charSet[Number(time[i])]; }
+
+  var asciisum = 810;
+  for (var i=0;i<memberid.length;i++){ asciisum += memberid.charCodeAt(i); }
+  asciisum = String(asciisum).padStart(4,'0');
+  var couponmiddle = '';
+  for (var i=0;i<asciisum.length;i++){ couponmiddle += charSet[Number(asciisum[i])]; }
+
+  console.log("time:", time, "couponfront:", couponfront, "couponmiddle:", couponmiddle, "md5:", md5hash);
+
+  // sep 후보 확장: printable ASCII 33..126 (공백은 제외)
+  var sepCandidates = [];
+  for (var code = 33; code <= 126; code++) {
+    sepCandidates.push(String.fromCharCode(code));
+  }
+  // 필요하면 숫자/영문 우선 후보로도 해둘 수 있음:
+  // sepCandidates = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_/".split('');
+
+  var found = false;
+  for (var si=0; si<sepCandidates.length && !found; si++){
+    var sep = sepCandidates[si];
+    var candidate13 = prefix + couponfront + couponmiddle + sep; // 13 chars
+    var inputmd5 = md5_raw(candidate13).substr(0,2).toLowerCase();
+    if (inputmd5 === md5hash) {
+      var full = candidate13 + md5hash;
+      console.log("FOUND:", full, "sep:", sep);
+      // 자동으로 폼 필드에 넣기 (필드 id/이름에 따라 바꿔야 할 수 있음)
+      var couponField = document.querySelector('#couponnum') || document.querySelector('input[name="couponnum"]') || document.querySelector('input.couponnum');
+      if (couponField) couponField.value = full;
+      // optionally show alert
+      alert("쿠폰 찾음: " + full);
+      found = true;
+      break;
+    }
+  }
+  if(!found) {
+    console.log("못 찾음 — sep 후보 범위를 더 늘리거나(예: 유니코드 문자), page md5 값 확인 필요.");
+  }
+})();
+
+2.manners_maketh_coupons
+
+==========================

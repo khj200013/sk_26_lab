@@ -1,0 +1,11 @@
+===========================
+
+* SSRF 문제 3번
+
+===========================
+
+1. http://eqst-ssrf-victim.com:8098/admin.php?login_id=adminID&login_pwd=adminPW
+
+2. i_can_not_stop_you
+
+===========================

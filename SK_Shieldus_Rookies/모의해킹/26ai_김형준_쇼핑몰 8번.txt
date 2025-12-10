@@ -1,0 +1,13 @@
+==========================
+
+* 쇼핑몰 문제 8번
+
+==========================
+
+1. https://lab.eqst.co.kr:8110/practice/practice08/orderinfo 정보 입력후 결제 버튼 누르기 전 버프스위트로 잡고
+_csrf의 &shipmentfee=-358900으로 수정
+
+2. shipmentfee_cannot_be_negative
+
+==========================
+

@@ -1,0 +1,13 @@
+=======================
+
+* 세션/쿠키 문제 2번
+
+=======================
+
+1. session id가 ZXFzdDg3NTM2NA%3D%3D로 base64인코딩되어있어서
+ eqst001004 상대방의 session id를 인코딩하면 ZXFzdDAwMTAwNA%3D%3D로 인코딩되어 세션 변조
+
+2. cookie_answer_base64
+
+=======================
+

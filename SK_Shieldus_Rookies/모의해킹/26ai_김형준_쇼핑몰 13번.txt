@@ -1,0 +1,17 @@
+==========================
+
+* 쇼핑몰 문제 13번
+
+==========================
+
+1. https://lab.eqst.co.kr:8110/practice/practice13/qna/modify 
+_csrf=bde22375-84ac-475a-b2ea-ee7db49c1c2a&id=15869&originid=15869&title=1111&content=1111
+뒤에 &writerid=224 추가
+
+https://lab.eqst.co.kr:8110/practice/practice13/qna/
+브라우저 URL 뒤에 removebyid?id=15869 추가
+
+2. writerid_in_notice_view
+
+==========================
+

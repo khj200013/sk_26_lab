@@ -1,0 +1,26 @@
+=============================
+
+SQL Injection Oracle 문제 2번,  3번
+
+=============================
+SQL Injection
+회원가입 후 로그인하여 지문을 확인하고 SQL Injection을 이용하여 지문에 나와있는 계정으로 로그인하시오.
+
+Hint : 문자열 필터링 and ,or
+풀이과정
+1. ' -- or -- or '1'='1'
+정답
+2. exam_answer_complete
+
+
+SQL Injection
+회원가입 후 로그인하여 지문을 확인하고 SQL Injection을 이용하여 지문에 나와있는 계정으로 로그인하시오.
+
+Hint : 주석 필터링
+풀이과정
+1. ' or ' o '=' 0
+정답
+2. eqst_anwerexam
+
+=============================
+https://security04.tistory.com/171

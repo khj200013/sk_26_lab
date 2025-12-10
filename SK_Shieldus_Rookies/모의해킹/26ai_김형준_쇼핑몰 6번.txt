@@ -1,0 +1,18 @@
+==========================
+
+* 쇼핑몰 문제 6번
+
+==========================
+
+1. https://lab.eqst.co.kr:8110/practice/practice06/quit?id=U2FsdGVkX18OeT5UUH5AkLMw5x90V9Dbtp1WzUqTd4A%3D
+id 복호화시 salted...된것을 확인
+practice06.js에서 
+var passphrase = "useworldseyongkim";
+function encryMemberid(text){} 확인
+console에 변수 선언 및 encryMemberid('admin'); 
+암호화한 값 확인
+https://lab.eqst.co.kr:8110/practice/practice06/quit?id={암호화한 값}
+
+2. parameter_encryption
+
+==========================

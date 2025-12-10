@@ -1,0 +1,12 @@
+===========================
+
+* SSRF 문제 2번
+
+===========================
+
+1. http://eqst-ssrf-victim.com/include/db_conf.php
+https://2cm.es/1bHr9
+
+2. admin_will_be_fired
+
+===========================

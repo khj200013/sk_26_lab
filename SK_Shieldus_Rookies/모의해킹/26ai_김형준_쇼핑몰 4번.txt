@@ -1,0 +1,16 @@
+==========================
+
+* 쇼핑몰 문제 4번
+
+==========================
+
+1. 자신의 비밀번호 찾기를 누르고 https://lab.eqst.co.kr:8110/practice/practice04/findpw에서 
+비밀번호 찾기 질문과 그에 대한 답을 쓰고 비밀번호 찾기 버튼을 누른 후 버프스위트로 잡은 후
+서버에 보내고 서버에서 브라우저로 오기 전 https://lab.eqst.co.kr:8110/practice/practice04/findpwqa를 잡고 
+html에서 id가 memberid이고 placeholder가 아이디인 태그를 찾고 value값을 admin으로 변경 후 forward하면 
+admin으로 비밀번호를 새 등록할수있게된다
+
+2. encrypted_memberid
+
+==========================
+

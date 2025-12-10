@@ -1,0 +1,325 @@
+* 4일차 메모
+
+==============================
+* SQL Injection Oracle 4번 
+  자동화 공격 스크립트
+==============================
+ 스크립트 작성 과제 제출
+==============================
+
+-> 
+
+32 참?
+33 참?
+34?
+ 35
+ 36
+ 737
+
+85->참이네->chr(85)->"U"
+끝 
+2번재
+
+>70 참? -> 참
+>80 참? -> 참 
+>85 참? -> 거짓
+=81 
+=82
+=83
+=84
+=85
+
+이진 탐색 <-
+손으로 
+
+* binary Search - 이진 탐색 
+
+ascii = 85
+
+1차
+ 1 ~    127   mid : 64      ascii > 64 참 
+
+2차 
+ 65  ~ 127       mid : 96     ascii > 96 거짓 
+
+3차 
+ 65 ~ 96        mid: 80       ascii > 80 참 
+
+4차 
+ 81 ~ 96        mid: 88       ascii > 88 거짓 
+
+5차 
+ 81~88         mid : 84      ascii > 84 참 
+
+6차
+ 85~88         mid: 86       ascii > 86 거짓 
+
+7차 
+ 85~86        mid: 85       ascii > 85 거짓 
+
+8차
+ 85~85        -> 너85지?
+
+
+=======================================
+* SQL Injection 자동화 공격
+-> Oracle 5번, MySQL 5번, 쇼핑몰 1번 
+어디든
+=======================================
+- 이진탐색 적용
+- 테이블명 탈취(ANSWER)
+- 컬럼 탈취
+- 데이터 탈취
+
+스크립트 
+----
+출력 내용 복붙 
+
+
+스크립트 작성해서
+잘 되는 것 확인 후 과제 제출
+AI 활용해서 처음부터 차근차근 시켜보세요
+=======================================
+
+번외.
+쇼핑몰1번 -> 개인정보 탈취 -> 엑셀로 쭉 뽑아내기 <- 목적 
+       member <- 컬럼들 -> 뽑아서 엑셀파일로 저장해줘~
+-> 127건이상있어요 -> 1~127로는 개수가 제대로 안나옴
+
+
+* 한글 데이터
+-> 이름 컬럼은 한글 -> 15501234 -> hex : 0xEaeaff -> %ea%ea%ff -> URL 한글 Decoding 짜줘
+
+콘솔창에 출력하는거 X 
+엑셀파일로 싹 저장해줘 
+테이블명 -> 시트 
+컬럼명 -> 맨 윗줄 
+각 셀 -> 데이터를 집어넣어서
+엑셀파일을 만들어줘.
+
+=========================
+산출물 - 보고서 워드,한글
+=========================
+1개 
+쇼핑몰 문제풀이 
+1~15번 13개만 (3번, 14번 X)
+
+-> 내용 -> 수업시간에 다 풀거에요.
+
+ 문서를 얼마나 깔끔하게 잘 썼나 <-
+ 템플릿 X 
+새파일 -> 스타일 
+목차 ,
+
+다른 분들과 교환해서 서로 봐주기 
+
+오타 X -> 네이버 맞춤법 검사기 
+ai -> 문서 내용을 보고 니가 맞춤법 틀린거 봐줘 <-
+===========================
+
+잘짠 코드 
+중복 최소한
+짧게 <- 
+
+사용자가 코드를 볼줄알아야 
+
+세션/쿠키
+
+content-length : 
+
+세션/쿠키 
+xss<개요 
+
+==========================
+bcrypt
+
+사전파일 
+
+1234-> ㅁㄴㅇㄹㄴㅇㅁㄹ
+1234-> ㄴㅁ아리ㅓㄴㅁ아러ㅣ
+
+memberid    password
+ admin  //    1234    
+
+ select * from 상품정보 where id = __입력__; 
+
+laravel node.js spring(boot) 등
+
+springboot 
+
+-> JPA 
+
+데이터를 db에서 조작 쿼리 X
+
+
+jsp -> springboot  
+친구찾기쿼리 실행
+
+
+finJPA
+xml 
+<친구찾기쿼리>
+  select * fsadkflj  -> 
+</친구찾기 >
+
+
+repository 
+
+   findByName("") 
+   <- 한계 
+   findbynameorhobbyorderby(name,hobby,order)
+
+엄청나게 길고 복잡하고 join union  서브쿼리
+
+@nativequery 
+query = " union join (select)"
+
+model 
+
+member 
+=================
+id  userid pw name 
+================
+
+
+member.java 
+
+Class member{
+    int id;
+    string userid;
+    string pw;
+    string name;
+}
+
+비밀번호
+비밀번호 찾기 답변 <- 
+크래킹 오래걸려요
+피싱
+
+===============================================================
+
+* 세션/쿠키 
+
+쿠키 <- 브라우저에 저장하는거
+세션 <- 서버에 저장하는거 
+
+웹통신  
+                        대기
+브라우저 -> 한번 요청 -> 서버   <->  DB
+         <- 한번 응답
+
+누가 요청을 보냈는지 X 
+한번 보내고 X 
+
+tcp socket  클라이언트 <-> 서버
+
+https://www.naver.com/index.html 
+
+https://mail.naver.com/id=test02 -> 
+
+<html> 
+<head>
+  설정 
+  <title >
+</head>
+<body> 
+ 내용 
+ <img -
+ <script src="test.js" type="java 
+ <link src="test.css 
+
+ 크롬 
+ 
+ 쿠키 <- 내PC 하드디스크
+                         ->      naver.com
+                          <- 처음왔구나?
+
+                          <-      
+
+                            set-cookie:sessid=qqqq
+naver.com/login/      <- d어? 너 처음왔구나  
+                           set-cookie:sessid=pppp 
+
+cookie: 
+
+인터넷 사용기록 삭제 -> 
+ 
+A naver.com     ->                   왔어? pppp? 이런거 없는데? 그냥 새로 널위한 공간 만들어조
+cookie:sessid=jjjj                  set-cookie:sessid=
+
+mail.naver.com -> 
+cookie:sessid=jjjj                               select * from 메일함 where id = 세션jjjj["loginid"]                                  
+
+A naver.com -> 
+cookie:sessid=jjjj
+
+B naver.com ->                               set-cookie:sessid=kkkk [ loginId: 비로그인             ]
+cookie:sesid=kkkk
+
+mail.naver.com -> 
+cookie:sessid=jjjj    ->  
+버프
+
+쿠키의 세션ID값의 재사용 -> session replay attack 
+
+식별     인증       인가  -> 웹 
+=========================
+ID      비밀번호     권한 
+
+
+ID+PW <- sessid 
+인증정보
+
+
+PHPSESSID=f0333aee86ff93dd20530cf0971ab1c6
+
+로그아웃 -> 
+
+================================
+세션 재사용 공격
+================================
+- Match&Replace 기능을 이용하여
+  타인의 권한으로 글을 작성하세요.
+
+* kkk@k.com 세션ID 쿠키값
+PHPSESSID=38c587b463d3b54ef0ac09c63b51f95a
+==================================
+
+세션 하이재킹
+세션 재사용 취약점 
+-> 인증정보 재사용 
+
+3가지 취약점 
+각각의 대응방안
+한계 
+
+html/javascript/css <-
+
+document.getElementById(').
+
+id class name 
+eventhandler attribute
+
+XSS 
+
+최소한 TCP
+source IP, dst IP port
+IP 
+
+PC방에서 로그인 
+XSS
+
+키로거 
+ksdksdlkjasfdlkjsdflkj -> 해커서버-> 
+
+쿠키 
+-> naver.com sessid =asdkflj 
+시간끝나면 -> 초기화 PC 
+
+
+session timeout -> 1시간 
+사용안하고 
+cookie:sessid=jjj   
+브라우저 지워줍니다. 
+
+백엔드 set-cookie:sessid=aaaa;

